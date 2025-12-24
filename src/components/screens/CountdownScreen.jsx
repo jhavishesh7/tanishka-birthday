@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { Heart } from "lucide-react"
+import HeartPopup from "../HeartPopup"
 
 // Love quotes that rotate daily
 const loveQuotes = [
@@ -43,7 +45,9 @@ export default function CountdownScreen({ onDone }) {
     seconds: 0,
   })
   const [isExpired, setIsExpired] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
   const [currentQuote, setCurrentQuote] = useState("")
+  const [daysLeft, setDaysLeft] = useState(0)
   const [shouldBypass, setShouldBypass] = useState(false)
 
   // Check bypass immediately on mount
@@ -115,6 +119,7 @@ export default function CountdownScreen({ onDone }) {
       }
 
       const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      setDaysLeft(days)
 
       return {
         days,
@@ -230,6 +235,25 @@ export default function CountdownScreen({ onDone }) {
         ))}
       </div>
 
+      {/* Heart Button */}
+      <motion.button
+        initial={{ scale: 0, rotate: -180 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ delay: 1.5, type: "spring" }}
+        onClick={() => setShowPopup(true)}
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 bg-gradient-to-r from-pink-500 to-purple-500 p-3 sm:p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300 group touch-manipulation"
+        aria-label="Open heart message"
+      >
+        <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-white fill-white group-hover:scale-125 transition-transform" />
+      </motion.button>
+
+      {/* Heart Popup */}
+      <HeartPopup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        daysLeft={daysLeft}
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -243,6 +267,32 @@ export default function CountdownScreen({ onDone }) {
         >
           Counting down to your special day...
         </motion.h1>
+
+        {/* Instructions Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mb-6 sm:mb-8 max-w-3xl mx-auto px-4"
+        >
+          <div className="bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-fuchsia-500/30 backdrop-blur-md border-2 border-pink-400/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 shadow-xl">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 md:gap-4">
+              <div className="flex items-center gap-2">
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 fill-pink-300" />
+                <p className="text-sm sm:text-base md:text-lg text-pink-100 font-semibold">
+                  Click on the heart button
+                </p>
+              </div>
+              <span className="hidden sm:block text-pink-300">•</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xl sm:text-2xl">🎈</span>
+                <p className="text-sm sm:text-base md:text-lg text-pink-100 font-semibold">
+                  Pop all the balloons
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Daily Love Quote */}
         {currentQuote && (

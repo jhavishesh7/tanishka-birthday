@@ -42,28 +42,28 @@ export default function InteractiveBalloons({ onAllPopped }) {
       return positions
     }
 
-    // Generate truly random positions for top balloons - better distribution
-    const topPositions = generateRandomPositions(8, 10, 22) // Top area: 10-22% (wider range)
+    // Generate positions for top balloons - 10 balloons arranged properly
+    const topPositions = generateRandomPositions(10, 10, 22) // Top area: 10-22%
     const topBalloons = topPositions.map((pos, i) => ({
       id: `top-${i}`,
       x: pos.x,
       y: pos.y,
       color: balloonColors[Math.floor(Math.random() * balloonColors.length)],
-      size: 45 + Math.random() * 18, // Better size range: 45-63px
+      size: 45 + Math.random() * 18, // Size range: 45-63px
       popped: false,
-      appearDelay: i * 0.2 + Math.random() * 0.15, // Staggered but faster
+      appearDelay: i * 0.15 + Math.random() * 0.1, // Staggered appearance
     }))
 
-    // Generate truly random positions for bottom balloons - better distribution
-    const bottomPositions = generateRandomPositions(8, 78, 90) // Bottom area: 78-90% (wider range)
+    // Generate positions for bottom balloons - 10 balloons arranged properly
+    const bottomPositions = generateRandomPositions(10, 78, 90) // Bottom area: 78-90%
     const bottomBalloons = bottomPositions.map((pos, i) => ({
       id: `bottom-${i}`,
       x: pos.x,
       y: pos.y,
       color: balloonColors[Math.floor(Math.random() * balloonColors.length)],
-      size: 45 + Math.random() * 18, // Better size range: 45-63px
+      size: 45 + Math.random() * 18, // Size range: 45-63px
       popped: false,
-      appearDelay: (i + 8) * 0.2 + Math.random() * 0.15, // Continue sequence
+      appearDelay: (i + 10) * 0.15 + Math.random() * 0.1, // Continue sequence from top
     }))
 
     return [...topBalloons, ...bottomBalloons]
