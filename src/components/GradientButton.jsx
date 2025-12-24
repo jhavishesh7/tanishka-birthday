@@ -1,3 +1,5 @@
+"use client"
+
 export default function GradientButton({ className = "", children, ...props }) {
     return (
         <button
