@@ -78,19 +78,19 @@ button {
 
 .cake {
   position: relative;
-  width: 250px;
-  height: 200px;
+  width: clamp(200px, 40vw, 280px);
+  height: clamp(160px, 32vw, 224px);
   top: 50%;
   left: 50%;
-  margin-left: -125px;
+  margin-left: calc(clamp(200px, 40vw, 280px) / -2);
 }
 
 .plate {
-  width: 270px;
-  height: 110px;
+  width: calc(clamp(200px, 40vw, 280px) + 20px);
+  height: calc(clamp(160px, 32vw, 224px) * 0.55);
   position: absolute;
   bottom: -10px;
-  left: -10px;
+  left: calc((clamp(200px, 40vw, 280px) - (clamp(200px, 40vw, 280px) + 20px)) / 2);
   background-color: #ccc;
   border-radius: 50%;
   box-shadow:
@@ -106,8 +106,8 @@ button {
 .layer {
   position: absolute;
   display: block;
-  width: 250px;
-  height: 100px;
+  width: clamp(200px, 40vw, 280px);
+  height: calc(clamp(160px, 32vw, 224px) * 0.5);
   border-radius: 50%;
   background-color: #553c13;
   box-shadow:
@@ -141,11 +141,11 @@ button {
 }
 
 .icing {
-  top: 2px;
-  left: 5px;
+  top: calc(clamp(160px, 32vw, 224px) * 0.0125);
+  left: calc(clamp(200px, 40vw, 280px) * 0.025);
   background-color: #fff3e6;
-  width: 240px;
-  height: 90px;
+  width: calc(clamp(200px, 40vw, 280px) * 0.96);
+  height: calc(clamp(160px, 32vw, 224px) * 0.45);
   border-radius: 50%;
 }
 
@@ -167,43 +167,43 @@ button {
 
 .drip {
   display: block;
-  width: 50px;
-  height: 60px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  width: calc(clamp(200px, 40vw, 280px) * 0.2);
+  height: calc(clamp(160px, 32vw, 224px) * 0.3);
+  border-bottom-left-radius: calc(clamp(200px, 40vw, 280px) * 0.1);
+  border-bottom-right-radius: calc(clamp(200px, 40vw, 280px) * 0.1);
   background-color: #f0e4d0;
 }
 
 .drip1 {
-  top: 53px;
-  left: 5px;
+  top: calc(clamp(160px, 32vw, 224px) * 0.33);
+  left: calc(clamp(200px, 40vw, 280px) * 0.025);
   transform: skewY(15deg);
-  height: 48px;
-  width: 40px;
+  height: calc(clamp(160px, 32vw, 224px) * 0.24);
+  width: calc(clamp(200px, 40vw, 280px) * 0.16);
 }
 
 .drip2 {
-  top: 69px;
-  left: 181px;
+  top: calc(clamp(160px, 32vw, 224px) * 0.43);
+  left: calc(clamp(200px, 40vw, 280px) * 0.725);
   transform: skewY(-15deg);
 }
 
 .drip3 {
-  top: 54px;
-  left: 90px;
-  width: 80px;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+  top: calc(clamp(160px, 32vw, 224px) * 0.34);
+  left: calc(clamp(200px, 40vw, 280px) * 0.36);
+  width: calc(clamp(200px, 40vw, 280px) * 0.32);
+  border-bottom-left-radius: calc(clamp(200px, 40vw, 280px) * 0.16);
+  border-bottom-right-radius: calc(clamp(200px, 40vw, 280px) * 0.16);
 }
 
 .candle {
   background-color: #7B020B;
-  width: 16px;
-  height: 50px;
-  border-radius: 8px / 4px;
-  top: -20px;
+  width: calc(clamp(200px, 40vw, 280px) * 0.064);
+  height: calc(clamp(160px, 32vw, 224px) * 0.25);
+  border-radius: calc(clamp(200px, 40vw, 280px) * 0.032px) / calc(clamp(200px, 40vw, 280px) * 0.016px);
+  top: calc(clamp(160px, 32vw, 224px) * -0.125);
   left: 50%;
-  margin-left: -8px;
+  margin-left: calc(clamp(200px, 40vw, 280px) * -0.032px);
   z-index: 10;
 }
 

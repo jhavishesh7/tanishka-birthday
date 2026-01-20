@@ -97,7 +97,7 @@ export default function CakeScreen({ onNext, onDecorate }) {
   }
 
   return (
-    <div className="px-4 md:px-6 py-10 text-center relative min-h-screen flex flex-col justify-center" style={{ background: 'linear-gradient(to bottom right, #000000, #1a0a2e, #2d1b3d, #16213e)' }}>
+    <div className="px-4 md:px-6 py-8 sm:py-10 text-center relative min-h-screen flex flex-col justify-center" style={{ background: 'linear-gradient(to bottom right, #000000, #1a0a2e, #2d1b3d, #16213e)' }}>
       {/* Interactive Balloons */}
       <InteractiveBalloons onAllPopped={() => setAllBalloonsPopped(true)} />
 
@@ -107,13 +107,13 @@ export default function CakeScreen({ onNext, onDecorate }) {
       </audio>
 
       {lit && (
-        <motion.div 
-          className="absolute top-24 sm:top-28 md:top-32 lg:top-40 left-0 w-full text-center z-40 px-4"
+        <motion.div
+          className="absolute top-16 sm:top-20 md:top-24 lg:top-32 xl:top-40 left-0 w-full text-center z-40 px-4"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
         >
-          <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 drop-shadow leading-tight px-2"
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 drop-shadow leading-tight px-2"
             style={{ filter: "drop-shadow(0 0 20px rgba(255,105,180,0.4))" }}
           >
             {displayedText}
@@ -129,7 +129,7 @@ export default function CakeScreen({ onNext, onDecorate }) {
         </motion.div>
       )}
 
-      <div className="relative flex flex-col items-center gap-4 sm:gap-6 md:gap-8 mt-32 sm:mt-36 md:mt-40 lg:mt-48">
+      <div className="relative flex flex-col items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 mt-20 sm:mt-24 md:mt-28 lg:mt-32 xl:mt-36">
         <div className="relative mb-6">
           <Cake lit={lit} cut={cut} />
         </div>
@@ -150,12 +150,13 @@ export default function CakeScreen({ onNext, onDecorate }) {
               key="pop-balloons"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="h-14 flex items-center justify-center"
+              className="h-16 sm:h-20 flex items-center justify-center relative z-50"
             >
               <motion.div
-                animate={{ opacity: [0.6, 1, 0.6] }}
+                animate={{ opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-                className="text-pink-300 text-sm sm:text-base md:text-lg font-medium px-4 text-center"
+                className="text-pink-200 text-base sm:text-lg md:text-xl font-semibold px-4 py-2 text-center bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-fuchsia-500/20 backdrop-blur-sm rounded-xl border border-pink-400/30 shadow-lg"
+                style={{ textShadow: "0 0 10px rgba(255,105,180,0.5)" }}
               >
                 Pop all the balloons to continue! 🎈
               </motion.div>

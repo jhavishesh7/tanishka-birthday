@@ -15,9 +15,9 @@ export default function InteractiveBalloons({ onAllPopped }) {
       const maxAttempts = 200
 
       while (positions.length < count && attempts < maxAttempts) {
-        const x = 8 + Math.random() * 84 // Random X between 8% and 92% (avoid edges)
+        const x = 5 + Math.random() * 90 // Random X between 5% and 95% (more edge coverage but safe)
         const y = yMin + Math.random() * (yMax - yMin) // Random Y in range
-        
+
         // Check if position is far enough from existing positions (both X and Y)
         const tooClose = positions.some(pos => {
           const xDistance = Math.abs(x - pos.x)
@@ -34,7 +34,7 @@ export default function InteractiveBalloons({ onAllPopped }) {
 
       // Fill remaining if needed (allow closer spacing but still random)
       while (positions.length < count) {
-        const x = 8 + Math.random() * 84
+        const x = 5 + Math.random() * 90
         const y = yMin + Math.random() * (yMax - yMin)
         positions.push({ x, y })
       }
@@ -43,25 +43,27 @@ export default function InteractiveBalloons({ onAllPopped }) {
     }
 
     // Generate positions for top balloons - 10 balloons arranged properly
-    const topPositions = generateRandomPositions(10, 10, 22) // Top area: 10-22%
+    // Use more responsive ranges that work better on mobile
+    const topPositions = generateRandomPositions(10, 8, 25) // Top area: 8-25% (moved up slightly)
     const topBalloons = topPositions.map((pos, i) => ({
       id: `top-${i}`,
       x: pos.x,
       y: pos.y,
       color: balloonColors[Math.floor(Math.random() * balloonColors.length)],
-      size: 45 + Math.random() * 18, // Size range: 45-63px
+      size: Math.max(35, Math.min(55, 40 + Math.random() * 15)), // Size range: 35-55px (more responsive)
       popped: false,
       appearDelay: i * 0.15 + Math.random() * 0.1, // Staggered appearance
     }))
 
     // Generate positions for bottom balloons - 10 balloons arranged properly
-    const bottomPositions = generateRandomPositions(10, 78, 90) // Bottom area: 78-90%
+    // Use more responsive ranges that leave room for UI elements
+    const bottomPositions = generateRandomPositions(10, 70, 85) // Bottom area: 70-85% (moved up to avoid bottom UI)
     const bottomBalloons = bottomPositions.map((pos, i) => ({
       id: `bottom-${i}`,
       x: pos.x,
       y: pos.y,
       color: balloonColors[Math.floor(Math.random() * balloonColors.length)],
-      size: 45 + Math.random() * 18, // Size range: 45-63px
+      size: Math.max(35, Math.min(55, 40 + Math.random() * 15)), // Size range: 35-55px (more responsive)
       popped: false,
       appearDelay: (i + 10) * 0.15 + Math.random() * 0.1, // Continue sequence from top
     }))
@@ -170,13 +172,13 @@ export default function InteractiveBalloons({ onAllPopped }) {
                   style={{
                     background: `radial-gradient(ellipse at 30% 30%, ${balloon.color}ff, ${balloon.color}ee 35%, ${balloon.color}cc 60%, ${balloon.color}99)`,
                     boxShadow: `
-                      inset -10px -10px 0 rgba(0,0,0,0.25),
-                      inset 6px 6px 0 rgba(255,255,255,0.4),
-                      0 4px 8px rgba(0,0,0,0.4),
-                      0 0 15px ${balloon.color}88,
-                      0 0 30px ${balloon.color}44
+                      inset -8px -8px 0 rgba(0,0,0,0.25),
+                      inset 4px 4px 0 rgba(255,255,255,0.4),
+                      0 3px 6px rgba(0,0,0,0.4),
+                      0 0 12px ${balloon.color}88,
+                      0 0 24px ${balloon.color}44
                     `,
-                    border: `1.5px solid ${balloon.color}ee`,
+                    border: `1px solid ${balloon.color}ee`,
                   }}
                 >
                   {/* Large highlight for realistic shine */}
