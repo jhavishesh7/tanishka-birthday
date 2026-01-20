@@ -104,12 +104,19 @@ export default function CountdownScreen({ onDone }) {
 
     const calculateTimeLeft = () => {
       const now = new Date()
-      const targetDate = new Date(now.getFullYear(), 0, 20) // January 20
-      
-      // If January 20 has passed this year, set it for next year
-      if (now > targetDate) {
-        targetDate.setFullYear(now.getFullYear() + 1)
+      const currentYear = now.getFullYear()
+      const currentMonth = now.getMonth() // 0 = January
+      const currentDate = now.getDate()
+
+      // Check if today is January 20 - if so, bypass completely (site fully open)
+      if (currentMonth === 0 && currentDate === 20) {
+        setIsExpired(true)
+        setTimeout(() => onDone?.(), 500)
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 }
       }
+
+      // For January 21 and later, countdown to January 20 of next year
+      let targetDate = new Date(currentYear + 1, 0, 20) // January 20 next year
 
       const difference = targetDate - now
 
@@ -347,7 +354,7 @@ export default function CountdownScreen({ onDone }) {
           transition={{ delay: 1.2 }}
           className="mt-6 sm:mt-8 text-base sm:text-lg text-pink-200/70 px-4"
         >
-          January 20, {new Date().getFullYear() + (new Date() > new Date(new Date().getFullYear(), 0, 20) ? 1 : 0)}
+          January 20, {new Date().getFullYear() + 1}
         </motion.p>
 
         {/* Daily Visit Message */}
