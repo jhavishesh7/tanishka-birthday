@@ -11,7 +11,7 @@ export default function HappyBirthdayBanner() {
       transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
       className="fixed top-10 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
     >
-      <div className="bg-gradient-to-r from-pink-500/90 via-purple-500/90 to-fuchsia-500/90 backdrop-blur-md px-8 py-4 rounded-full shadow-2xl border-2 border-pink-400/50">
+      <div className="bg-gradient-to-r from-pink-500/50 via-purple-500/50 to-fuchsia-500/50 backdrop-blur-sm px-8 py-4 rounded-full shadow-2xl border-2 border-pink-400/30">
         <motion.h1
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}

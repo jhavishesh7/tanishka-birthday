@@ -28,11 +28,17 @@ export default function HomePage() {
       setShowBanner(true)
       setTimeout(() => setCurrentScreen(4), 500)
     }} />,
-    <CakeScreen key="cake" onNext={() => {
-      setShowBalloons(false)
-      setShowBanner(false)
-      setCurrentScreen(5)
-    }} />,
+    <CakeScreen 
+      key="cake" 
+      onNext={() => {
+        setShowBalloons(false)
+        setShowBanner(false)
+        setCurrentScreen(5)
+      }}
+      onAllBalloonsPopped={() => {
+        setShowBanner(false)
+      }}
+    />,
     <UpsDownsScreen key="upsdowns" onNext={() => setCurrentScreen(6)} />,
     <PhotosScreen key="photos" onNext={() => setCurrentScreen(7)} />,
     <MessageScreen key="message" onNext={() => setCurrentScreen(8)} />,

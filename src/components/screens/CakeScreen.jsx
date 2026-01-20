@@ -9,7 +9,7 @@ import { ArrowRight, Flame, Scissors } from "lucide-react"
 
 const confettiColors = ["#FF3CAC", "#F687B3", "#D8B4FE", "#C084FC", "#F472B6"];
 
-export default function CakeScreen({ onNext, onDecorate }) {
+export default function CakeScreen({ onNext, onDecorate, onAllBalloonsPopped }) {
   const [decorated, setDecorated] = useState(false)
   const [lit, setLit] = useState(false)
   const [cut, setCut] = useState(false)
@@ -36,6 +36,19 @@ export default function CakeScreen({ onNext, onDecorate }) {
       return () => clearInterval(interval)
     }
   }, [lit, cut, fullText])
+
+  // Automatically light candles when all balloons are popped
+  useEffect(() => {
+    if (allBalloonsPopped && !lit) {
+      // Hide the banner when all balloons are popped
+      if (onAllBalloonsPopped) {
+        onAllBalloonsPopped()
+      }
+      setTimeout(() => {
+        lightCandle()
+      }, 1000) // Small delay for smooth transition
+    }
+  }, [allBalloonsPopped, lit, onAllBalloonsPopped])
 
   const decorate = () => {
     if (decorated) return
@@ -99,7 +112,13 @@ export default function CakeScreen({ onNext, onDecorate }) {
   return (
     <div className="px-4 md:px-6 py-8 sm:py-10 text-center relative min-h-screen flex flex-col justify-center" style={{ background: 'linear-gradient(to bottom right, #000000, #1a0a2e, #2d1b3d, #16213e)' }}>
       {/* Interactive Balloons */}
-      <InteractiveBalloons onAllPopped={() => setAllBalloonsPopped(true)} />
+      <InteractiveBalloons onAllPopped={() => {
+        setAllBalloonsPopped(true)
+        // Hide banner immediately when balloons are popped
+        if (onAllBalloonsPopped) {
+          onAllBalloonsPopped()
+        }
+      }} />
 
       {/* Hidden audio for happy birthday song */}
       <audio ref={audioRef} loop>
@@ -160,18 +179,6 @@ export default function CakeScreen({ onNext, onDecorate }) {
               >
                 Pop all the balloons to continue! 🎈
               </motion.div>
-            </motion.div>
-          ) : !lit ? (
-            <motion.div
-              key="light"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-            >
-              <GradientButton onClick={lightCandle}>
-                <Flame size={20} />
-                Light the Candle
-              </GradientButton>
             </motion.div>
           ) : lit && !showCutButton ? (
             // Show nothing while waiting for cut button to appear
